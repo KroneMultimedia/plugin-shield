@@ -16,18 +16,18 @@ class Core
 
     private function add_filters()
     {
-
-        add_action('admin_menu', array( $this, 'enqueue_styles' ), 20);
-        add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'), 10, 1);
+        add_action('admin_menu', [$this, 'enqueue_styles'], 20);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts'], 10, 1);
     }
 
     public function enqueue_styles()
     {
         wp_enqueue_style('idb_style', $this->plugin_dir . '/assets/css/idb.css');
     }
+
     public function enqueue_scripts()
     {
-        wp_enqueue_script('krn_idb', $this->plugin_dir . '/assets/js/idb.js', ["jquery"]);
-        wp_enqueue_script('idb', $this->plugin_dir . '/assets/js/krn_snapshot.js', ["krn_idb", "jquery"]);
+        wp_enqueue_script('krn_idb', $this->plugin_dir . '/assets/js/idb.js', ['jquery']);
+        wp_enqueue_script('idb', $this->plugin_dir . '/assets/js/krn_snapshot.js', ['krn_idb', 'jquery']);
     }
 }
