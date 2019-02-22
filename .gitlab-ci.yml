@@ -35,8 +35,7 @@ tests:phpcs:
   script:
     # Check for var_dump/dump
     - export PATH=~/.composer/vendor/bin:$PATH
-    - composer install
-    - composer cs-check
+    - php-cs-fixer fix --verbose --dry-run --rules=@PSR2 || true
   tags:
     - docker
   except:
