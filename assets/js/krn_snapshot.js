@@ -31,6 +31,7 @@ var KRNSnapshot = {
   },
   init: function() {
     var self = this;
+    
     jQuery(document).on("submit", "form", function() {
       if ($(this).hasClass("is-validating")) {
         self.make();
@@ -55,6 +56,12 @@ var KRNSnapshot = {
     if (!document.location.href.match(/(post\-new|post).php/)) {
       return;
     }
+
+    window.onbeforeunload = function() {
+      KRNSnapshot.make();
+      return;
+    };
+
     var keyName = self.version + jQuery("[name=post_type]").val();
     idbKeyval.get(keyName).then(function(d) {
       if (d) {
