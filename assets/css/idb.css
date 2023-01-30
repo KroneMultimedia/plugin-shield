@@ -8,6 +8,7 @@
    transition: all 0.1s ease-in-out;
  
    //font-size: 50px;
+   z-index: 50;
    color: white;
    text-align: center;
  
