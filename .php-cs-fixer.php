@@ -1,14 +1,10 @@
 <?php
-$config = PhpCsFixer\Config::create();
+$config = new PhpCsFixer\Config();
 $config->setRiskyAllowed(true);
 $config->setRules([
     '@Symfony' => true,
     'array_syntax' => [
     'syntax' => 'short',
-    ],
-    'binary_operator_spaces' => [
-    'align_double_arrow' => false,
-    'align_equals' => false,
     ],
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
@@ -19,13 +15,12 @@ $config->setRules([
     'concat_space' => ['spacing' => 'one'],
     'function_typehint_space' => true,
     'lowercase_cast' => true,
-    'method_separation' => true,
     'native_function_casing' => true,
     'new_with_braces' => true,
     'no_empty_comment' => true,
     'no_empty_phpdoc' => true,
     'no_empty_statement' => true,
-    'no_extra_consecutive_blank_lines' => [
+    'no_extra_blank_lines' => [
     'tokens' => [
     'curly_brace_block',
     'extra',
@@ -40,7 +35,7 @@ $config->setRules([
     'no_multiline_whitespace_around_double_arrow' => true,
     'no_short_bool_cast' => true,
     'no_singleline_whitespace_before_semicolons' => true,
-    'no_trailing_comma_in_singleline_array' => true,
+    'no_trailing_comma_in_singleline' => true,
     'no_unneeded_control_parentheses' => true,
     'no_unused_imports' => true,
     'no_whitespace_before_comma_in_array' => true,
@@ -53,8 +48,8 @@ $config->setRules([
     'php_unit_dedicate_assert' => true,
     'phpdoc_single_line_var_spacing' => true,
     'phpdoc_trim' => true,
-    'pre_increment' => true,
-    'psr4' => true,
+    'increment_style' =>  true,
+    'psr_autoloading' => true,
     'random_api_migration' => true,
     'self_accessor' => true,
     'short_scalar_cast' => true,
@@ -64,7 +59,7 @@ $config->setRules([
     'space_after_semicolon' => true,
     'standardize_not_equals' => true,
     'ternary_operator_spaces' => true,
-    'trailing_comma_in_multiline_array' => true,
+    'trailing_comma_in_multiline' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
     'whitespace_after_comma_in_array' => true,
