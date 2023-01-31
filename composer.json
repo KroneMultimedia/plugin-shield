@@ -4,18 +4,15 @@
   "support": {
     "src": "http://gitlab.krone.at/WordPress/plugin-shield"
   },
-  "repositories": [{
-      "type": "gitlab",
-      "url": "http://gitlab.krone.at/KRN/phpunitwp.git"
-    }
-],
+  "repositories": [],
 
   "extra": {
     "installer-name": "kmm-shield"
   },
   "require": {
     "php": ">=7.0.0",
-    "composer/installers": "~1.0"
+    "composer/installers": "~1.0",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "autoload": {
     "classmap": [
@@ -30,12 +27,15 @@
   "config": {
     "gitlab-domains": ["gitlab.krone.at"],
     "github-protocols": ["https"],
-    "secure-http": false
+    "secure-http": false,
+    "allow-plugins": {
+      "composer/installers": true
+    }
   },
   "require-dev": {
     "php-mock/php-mock": "^2.0",
-    "friendsofphp/php-cs-fixer": "^2.11",
-    "phpunit/phpunit": "dev-add-compatibility-with-php8-to-phpunit-7",
+    "friendsofphp/php-cs-fixer": "^3.1",
+    "phpunit/phpunit": ">=8.5.23",
     "scrutinizer/ocular": "^1.5"
   }
 }
