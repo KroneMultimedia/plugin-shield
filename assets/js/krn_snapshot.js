@@ -33,7 +33,7 @@ var KRNSnapshot = {
     var self = this;
     self.lastObj = {};
     
-    jQuery(document).on("submit", "form", function() {
+    jQuery("#post").on("submit", "form", function() {
       //if ($(this).hasClass("is-validating")) {
         self.make();
       //}
