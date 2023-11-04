@@ -1,4 +1,5 @@
 <?php
+
 $config = new PhpCsFixer\Config();
 $config->setRiskyAllowed(true);
 $config->setRules([
@@ -9,7 +10,7 @@ $config->setRules([
     'blank_line_after_namespace' => true,
     'blank_line_after_opening_tag' => true,
     'braces' => [
-    'position_after_functions_and_oop_constructs' => 'same'
+    'position_after_functions_and_oop_constructs' => 'same',
     ],
     'blank_line_before_statement' => ['statements' => ['return']],
     'concat_space' => ['spacing' => 'one'],
@@ -48,12 +49,11 @@ $config->setRules([
     'php_unit_dedicate_assert' => true,
     'phpdoc_single_line_var_spacing' => true,
     'phpdoc_trim' => true,
-    'increment_style' =>  true,
+    'increment_style' => true,
     'psr_autoloading' => true,
     'random_api_migration' => true,
     'self_accessor' => true,
     'short_scalar_cast' => true,
-    'single_blank_line_before_namespace' => true,
     'single_class_element_per_statement' => true,
     'single_quote' => true,
     'space_after_semicolon' => true,
@@ -66,7 +66,8 @@ $config->setRules([
 ]);
 $finder = PhpCsFixer\Finder::create();
 $finder->in([
-    'src'
+    'src',
 ]);
 $config->setFinder($finder);
+
 return $config;
