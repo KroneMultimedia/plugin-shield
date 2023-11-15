@@ -1,5 +1,7 @@
 // Your JavaScript code goes here
 var lastObj = {};
+var lastBlocks = [];
+var lastForm = {};
 console.log("[SWORD] Ready for:", window.location.href);
 
 doIt();
@@ -16,9 +18,23 @@ async function snapshot() {
   } else {
     return;
   }
-  if(deepEqual(jso, lastObj)) {
+
+  var blocks = [];
+  document.querySelectorAll("#krn_blockify_field_5877412aa9616 .LIFY_block").forEach((e) => {
+      blocks.push(e.innerHTML);
+  });
+
+  var formElement = document.querySelector('#post');
+  var forms = serializeForm(formElement);
+
+
+  if(deepEqual(jso, lastObj) && deepEqual(blocks, lastBlocks) && deepEqual(forms, lastForm)) {
     return;
   }
+
+
+  lastForm = forms;
+  lastBlocks = blocks;
   lastObj = jso;
   var records = await chrome.storage.local.get();
   if(!records) {
@@ -27,7 +43,12 @@ async function snapshot() {
   if(!records.data) {
     records.data = [];
   }
-  records.data.unshift(jso);
+
+  records.data.unshift({
+    json:  jso,
+    blocks:  blocks,
+    forms: forms,
+  });
 
 
   var saved = chrome.storage.local.set({
@@ -62,7 +83,8 @@ function   deepEqual(a, b) {
 
 
 async function doIt() {
-  if(!window.location.href.match("wp.krone.at.*post_type=article")) {
+  if(!window.location.href.match(".*wp.krone.at.*")) {
+    console.log("[SWORD] skip1", document.location.href);
     return;
   }
   // var store = await chrome.storage.local.set({
@@ -74,3 +96,37 @@ async function doIt() {
     snapshot();
   }, 2000);
 }
+
+function serializeForm(form) {
+    var elements = form.elements;
+    var formData = [];
+
+    for (var i = 0; i < elements.length; i++) {
+        var field = elements[i];
+
+        // Skip fields without a name or which are disabled
+        if (!field.name || field.disabled) {
+            continue;
+        }
+
+        // Skip fields that are buttons or unchecked radio/checkboxes
+        if (field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button' || ((field.type === 'checkbox' || field.type === 'radio') && !field.checked)) {
+            continue;
+        }
+
+        // Handle multiple select options
+        if (field.type === 'select-multiple') {
+            for (var j = 0; j < field.options.length; j++) {
+                var option = field.options[j];
+                if (option.selected) {
+                    formData.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(option.value));
+                }
+            }
+        } else if (field.type !== 'file' && field.type !== 'reset' && field.type !== 'submit' && field.type !== 'button') {
+            // All other field types, including text and textarea
+            formData.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+        }
+    }
+    return formData.join('&');
+}
+
