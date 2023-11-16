@@ -33,9 +33,9 @@ var KRNSnapshot = {
     var self = this;
     self.lastObj = {};
     
-    jQuery("#post").on("submit", "form", function() {
+    jQuery("#post").on("submit", "form", function(e) {
       //if ($(this).hasClass("is-validating")) {
-        self.make();
+        self.make("submit");
       //}
     });
     jQuery(window).on("resize", self.fixTBSize);
@@ -50,11 +50,25 @@ var KRNSnapshot = {
 
     self.showFAB();
     self.autoSave();
+
+    // Intercept save's
+    jQuery("#major-publishing-actions .buttons").click((e) => { 
+      if(!self.fieldsInSync()) {
+        var force = confirm("Dieser Artikel ist aller Voraussicht nach beim Speichern defekt. \nMöchten Sie fortfahren? \n(Eine Kopie wird in die Zwischenablage gelegt.)\nBitte lassen Sie ggf. diesen Browser offen \nund wenden Sie sich an bob@krone.at");
+        krn_cp_article();
+        if(!force) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
+
+      }
+    })
   },
   autoSave: function() {
     var self = this;
     self.autoSaveInterval = window.setInterval(function() {
-      self.make();
+      self.make("auto");
     }, 1000 * 60 * 1);
   },
   showFAB: function() {
@@ -64,7 +78,7 @@ var KRNSnapshot = {
     }
 
     window.onbeforeunload = function() {
-      KRNSnapshot.make();
+      KRNSnapshot.make("unload");
       return;
     };
 
@@ -101,11 +115,37 @@ var KRNSnapshot = {
 
     return true;
   },
-  make: function() {
+  fieldsInSync: function() {
+      // Check if editor has field
+      var valid = false;
+      if(window.krn_is_lify) {
+        try {
+          var block_count = $("#krn_blockify_field_5877412aa9616 .LIFY_block").length;
+          var jso = JSON.parse($("#krn_blockify_field_5877412aa9616_post_content").val());
+          valid = jso.length == block_count;
+        } catch (e) {
+          valid = false
+        }
+
+        console.log("VALIDATE:", valid ? "GOOD" : "BAD");
+        if(!valid) {
+          return false;
+        }
+        return true;
+      } else {
+        // old editor -> no Check
+        return true;
+      }
+  },
+  make: function(via) {
     var self = this;
 
+    console.log("M", via)
     var keyName = self.version + jQuery("[name=post_type]").val();
     if (self.SKIP_SNAPSHOT) return;
+    if(!self.fieldsInSync()) {
+      return;
+    }
     $("#idb_article_recover span").css("animation", "none");
     window.setTimeout(function() {
       $("#idb_article_recover span").css("animation", "spin 0.3s linear 2");
@@ -151,7 +191,7 @@ var KRNSnapshot = {
         }
         d = d.slice(-5);
         idbKeyval.set(keyName, d);
-        console.log("SNAPSHOT MADE");
+        console.log("SNAPSHOT MADE", via);
       });
     }
   },
@@ -327,5 +367,5 @@ var KRNSnapshot = {
 };
 jQuery(document).ready(function() {
   KRNSnapshot.init();
-  KRNSnapshot.make();
+  KRNSnapshot.make("onload");
 });
