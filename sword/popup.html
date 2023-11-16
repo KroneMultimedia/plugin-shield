@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+
     <title>Logo Centered Page</title>
     <style>
         body, html {
             height: 100%;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #f0f0f0;
             font-family: Arial, sans-serif;
+            width: 200px;
+        }
+        .info {
+          font-size: 16px;
+          font-weight: 800;
         }
 
         .logo-container {
@@ -25,13 +33,50 @@
         .logo-container img {
             height: auto;
         }
+        /* Button container for hover effect */
+        .button-container {
+            display: inline-block;
+            perspective: 1000px;
+            margin: 20px;
+        }
+
+        /* Button styles */
+        .mui-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button hover effect */
+        .mui-button:hover {
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Button click effect */
+        .mui-button:active {
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
     </style>
 </head>
 <body>
     <div class="logo-container">
+      <div class="info"><span id="amount"></span> / 100 Last: <span id="last_date"></span></div>
         <img src="icons/sword-logo.png" alt="Sword" width=100>
-        <div>Sword is Active</div>
+         <div class="button-container">
+        <button id="export" class="mui-button">Export</button>
+         </div>
+        <div class="button-container">
+        <button id="clear" class="mui-button" style="background-color: red">Clear</button>
+         </div>
+
     </div>
+    <script src="popup.js"></script>
 </body>
 </html>

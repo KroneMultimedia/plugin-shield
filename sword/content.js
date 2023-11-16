@@ -43,12 +43,18 @@ async function snapshot() {
   if(!records.data) {
     records.data = [];
   }
-
+  var ts = new Date();
   records.data.unshift({
     json:  jso,
     blocks:  blocks,
     forms: forms,
+    time: {
+        ts: Math.floor(ts.getTime()/1000),
+        d: ts.toLocaleTimeString(),
+    },
   });
+
+  records.data = records.data.splice(-100);
 
 
   var saved = chrome.storage.local.set({
