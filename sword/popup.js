@@ -12,9 +12,11 @@ async function updateStorageInfo() {
   
   if(records) {
     if(records.data) {
-      debugger;
       var l = records.data.length;
-      var last = records.data[0].time.d;
+      var last = "UNKOWN";
+      if(l > 0) {
+        last = records.data[0].time.d;
+      }
 
 
       document.querySelector("#last_date").innerText = last;
@@ -70,11 +72,20 @@ document.getElementById('export').addEventListener('click', async function() {
 });
 
 document.getElementById('clear').addEventListener('click',  function() {
-    var d = window.confirm("Localen Zwischenstand löschen?")
-    if(d) {
-        var records = chrome.storage.local.set({}).then(d => {
-            console.log("DONE");
-        });
+  var d = window.confirm("Localen Zwischenstand löschen?")
+  if(d) {
+    chrome.storage.local.clear(function() {
+      var error = chrome.runtime.lastError;
+      if (error) {
+        console.error(error);
+      }
+      // do something more
+      chrome.storage.local.set({
+        data: [],
+      }).then(() => {
+        console.log("RESET");
+      });
+    });
 
-    }
+  }
 });
