@@ -72,7 +72,7 @@ document.getElementById('export').addEventListener('click', async function() {
 document.getElementById('clear').addEventListener('click',  function() {
     var d = window.confirm("Localen Zwischenstand löschen?")
     if(d) {
-        var records = chrome.storage.local.set({}).then(d => {
+        var records = chrome.storage.local.clear().then(d => {
             console.log("DONE");
         });
 
