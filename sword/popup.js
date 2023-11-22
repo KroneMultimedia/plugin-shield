@@ -12,9 +12,11 @@ async function updateStorageInfo() {
   
   if(records) {
     if(records.data) {
-      debugger;
       var l = records.data.length;
-      var last = records.data[0].time.d;
+      var last = "UNKOWN";
+      if(l > 0) {
+        last = records.data[0].time.d;
+      }
 
 
       document.querySelector("#last_date").innerText = last;
@@ -76,5 +78,5 @@ document.getElementById('clear').addEventListener('click',  function() {
             console.log("DONE");
         });
 
-    }
+  }
 });
