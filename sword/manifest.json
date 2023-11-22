@@ -7,7 +7,9 @@
         "tabs",
         "scripting",
         "storage",
-        "unlimitedStorage"
+        "unlimitedStorage",
+        "webRequest",
+        "webRequestBlocking"
     ],
     "host_permissions": [
       "*://wp.krone.at/*",
@@ -19,7 +21,8 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": "icons/icon128.png"
     },
     "icons": {
         "16": "icons/icon16.png",

@@ -72,20 +72,11 @@ document.getElementById('export').addEventListener('click', async function() {
 });
 
 document.getElementById('clear').addEventListener('click',  function() {
-  var d = window.confirm("Localen Zwischenstand löschen?")
-  if(d) {
-    chrome.storage.local.clear(function() {
-      var error = chrome.runtime.lastError;
-      if (error) {
-        console.error(error);
-      }
-      // do something more
-      chrome.storage.local.set({
-        data: [],
-      }).then(() => {
-        console.log("RESET");
-      });
-    });
+    var d = window.confirm("Localen Zwischenstand löschen?")
+    if(d) {
+        var records = chrome.storage.local.clear().then(d => {
+            console.log("DONE");
+        });
 
   }
 });
