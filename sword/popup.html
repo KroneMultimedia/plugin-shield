@@ -4,79 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
-
-    <title>Logo Centered Page</title>
+    <title>Material-like Design</title>
     <style>
-        body, html {
-            height: 100%;
+        /* Material Design-like styles */
+        body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
+            padding: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            width: 200px;
-        }
-        .info {
-          font-size: 16px;
-          font-weight: 800;
+            width: 450px;
+            
         }
 
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
         }
 
-        .logo-container img {
-            height: auto;
-        }
-        /* Button container for hover effect */
-        .button-container {
-            display: inline-block;
-            perspective: 1000px;
-            margin: 20px;
+        .logo {
+            max-width: 100px;
         }
 
-        /* Button styles */
-        .mui-button {
-            display: inline-block;
+        button {
             padding: 10px 20px;
-            background-color: #2196F3;
-            color: #fff;
+            margin: 5px;
+            font-size: 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Button hover effect */
-        .mui-button:hover {
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        button.export {
+            background-color: #4CAF50; /* Green */
+            color: white;
         }
 
-        /* Button click effect */
-        .mui-button:active {
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        button.clear {
+            background-color: #f44336; /* Red */
+            color: white;
         }
 
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2196F3; /* Blue */
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #E1E2E3; /* Light Gray for odd rows */
+        }
+
+        tr:nth-child(even) {
+            background-color: #B9C1C7; /* Light Gray for even rows */
+        }
     </style>
 </head>
 <body>
-    <div class="logo-container">
-      <div class="info"><span id="amount"></span> / 100 Last: <span id="last_date"></span></div>
-        <img src="icons/sword-logo.png" alt="Sword" width=100>
-         <div class="button-container">
-        <button id="export" class="mui-button">Export</button>
-         </div>
-        <div class="button-container">
-        <button id="clear" class="mui-button" style="background-color: red">Clear</button>
-         </div>
-
+    <div class="container">
+      <img src="icons/sword-logo.png" alt="Sword" width=50><br>
+      <div style="display: flex; justify-content: center;">
+        <button id="export" class="export">Export</button>
+        <button id="clear" class="clear">Clear</button>
+      </div>
+      <div style="max-height: 400px; overflow:scroll; display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                    <th>Header 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                </tr>
+                <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                </tr>
+                <tr>
+                    <td>Data 7</td>
+                    <td>Data 8</td>
+                    <td>Data 9</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
     </div>
-    <script src="popup.js"></script>
 </body>
 </html>
+
+<script src="popup.js"></script>
