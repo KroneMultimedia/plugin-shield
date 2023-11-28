@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet">
+    <title>Material-like Design</title>
+    <style>
+        /* Material Design-like styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            width: 450px;
+            
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+        }
+
+        .logo {
+            max-width: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button.export {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+
+        button.clear {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2196F3; /* Blue */
+            color: white;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #E1E2E3; /* Light Gray for odd rows */
+        }
+
+        tr:nth-child(even) {
+            background-color: #B9C1C7; /* Light Gray for even rows */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+      <img src="icons/sword-logo.png" alt="Sword" width=50><br>
+      <div style="display: flex; justify-content: center;">
+        <button id="export" class="export">Export</button>
+        <button id="clear" class="clear">Clear</button>
+      </div>
+      <div style="max-height: 400px; overflow:scroll; display: none;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                    <th>Header 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                </tr>
+                <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                </tr>
+                <tr>
+                    <td>Data 7</td>
+                    <td>Data 8</td>
+                    <td>Data 9</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+</body>
+</html>
+
+<script src="popup.js"></script>
