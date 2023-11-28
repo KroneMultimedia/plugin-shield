@@ -53,16 +53,55 @@ var KRNSnapshot = {
 
     // Intercept save's
     jQuery("#major-publishing-actions .buttons").click((e) => { 
-      if(!self.fieldsInSync()) {
-        var force = confirm("Dieser Artikel ist aller Voraussicht nach beim Speichern defekt. \nMöchten Sie fortfahren? \n(Eine Kopie wird in die Zwischenablage gelegt.)\nBitte lassen Sie ggf. diesen Browser offen \nund wenden Sie sich an bob@krone.at");
-        krn_cp_article();
-        if(!force) {
+      function stopEvents(e) {
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
-        }
-
       }
+
+      $.ajax({
+        type: 'POST',
+        url: '/wp-json/kmm/v2/alive',
+        data: {
+              user: userSettings.uid,
+              post: krn_timeshift.post,
+              },
+        dataType: "json",
+        async: false,  // This makes the request synchronous
+        success: function(response) {
+          // Handle success
+          var j = response;
+          console.log(j) 
+          if(!j.logged_in) {
+            // Login bad
+            // jQuery(document).trigger( 'heartbeat-tick.wp-auth-check', [{"wp-auth-check": false}] )
+            wp.heartbeat.connectNow();
+            self.make("alive");
+            krn_cp_article();
+            stopEvents(e);
+          } else {
+            // Loggin is good, check for fields
+            if(!self.fieldsInSync()) {
+              var force = confirm("Dieser Artikel ist aller Voraussicht nach beim Speichern defekt. \nMöchten Sie fortfahren? \n(Eine Kopie wird in die Zwischenablage gelegt.)\nBitte lassen Sie ggf. diesen Browser offen \nund wenden Sie sich an bob@krone.at");
+        krn_cp_article();
+              if(!force) {
+                stopEvents(e);
+              }
+            }
+          }
+
+        },
+        error: function(xhr, status, error) {
+          // Handle error
+            // Login bad -> request failed
+            wp.heartbeat.connectNow();
+            self.make("alive");
+            krn_cp_article();
+            // jQuery(document).trigger( 'heartbeat-tick.wp-auth-check', [{"wp-auth-check": false}] )
+            stopEvents(e);
+        }
+      });
+
     })
   },
   autoSave: function() {
