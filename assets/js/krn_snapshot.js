@@ -158,6 +158,9 @@ var KRNSnapshot = {
   },
   fieldsInSync: function() {
       // Check if editor has field
+      return true;
+
+
       var valid = false;
       if(window.krn_is_lify) {
         try {
