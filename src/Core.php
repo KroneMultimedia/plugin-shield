@@ -30,8 +30,8 @@ class Core
     public function check_alive(\WP_REST_Request $request)
     {
         $data = [
-                'logged_in' => is_user_logged_in(),
-            ];
+            'logged_in' => is_user_logged_in(),
+        ];
 
         $uid = $request->get_param('user');
         $post = $request->get_param('post');
